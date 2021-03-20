@@ -27,7 +27,7 @@ const http = require('http')
 const socketIO = require('socket.io')
 const cors = require('cors');
 const WebSocketWrapper = require("ws-wrapper");
-
+const WebSocket = require('ws');
 module.exports = function createServer() {
 
   const app = express()
