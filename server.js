@@ -35,7 +35,6 @@ app.options('*', cors());
   const server = http.Server(app)
   const io = socketIO(server)
 io.set('origins', '*:*');
-io.serveClient(false);
   server.listen(80, function () {
     console.log("Server started on port 80")
   })
