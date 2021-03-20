@@ -46,9 +46,9 @@ io.set('origins', '*:*');
     res.sendFile(__dirname + '/index.html')
   })
 
-
-var socketvv = new WebSocketWrapper(new WebSocket("wss://api.upbit.com/websocket/v1"));
-socketvv.on("connect", function(from, msg) {
+function tradeServerConnect() {
+ var socketvv = new WebSocketWrapper(new WebSocket("wss://api.upbit.com/websocket/v1"));
+socketvv.on("connect", function(from) {
 	var msg = '[{"ticket":"fiwjfoew"},{"type":"trade","codes":["KRW-BTC", "KRW-ETH"]}]'
 socketvv.send(msg);	
 });
@@ -66,9 +66,16 @@ console.log(e);
 	
 socketvv.on("disconnect", () => {
 	console.log("bye")
-	socketvv = new WebSocketWrapper(new WebSocket("wss://api.upbit.com/websocket/v1"));
+	   setTimeout(function() {
+            console.log('trade 재접속');
+        tradeServerConnect();
+        }, 1000);
+	
 });
+}
 
+
+tradeServerConnect();
 
 
   io.on('connection', function (socket) {
