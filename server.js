@@ -55,7 +55,7 @@ socketvv.emit(msg);
 	console.log(socketvv);
 
 socketvv.on('message',function(from, msg)  {
- console.log(data);
+ console.log(msg);
 });
 
 
