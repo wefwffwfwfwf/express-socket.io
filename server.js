@@ -54,31 +54,14 @@ io.set('origins', '*:*');
 let reconnectValue = RECONNECT_VALUE_MIN;
 	var socketvv = new WebSocketWrapper(new WebSocket("wss://api.upbit.com/websocket/v1"),{  "requestTimeout": 8 * 1000 });
 socketvv.autoReconnect = true;
-socketvv.on("error", (err) => {
-    socketvv.disconnect();
-	console.log("bye")
-}).on("disconnect", function(event, wasOpen) {
-    // Use exponential back-off to reconnect if `autoReconnect` is set
-    if(wasOpen) {
-        reconnectValue = RECONNECT_VALUE_MIN;
-    } else {
-        reconnectValue = Math.min(reconnectValue * RECONNECT_VALUE_FACTOR,
-            RECONNECT_VALUE_MAX);
-    }
-    if(this.autoReconnect) {
-        setTimeout(() => {
-            socketvv.bind(new WebSocket("wss://api.upbit.com/websocket/v1") );
-        }, Math.random() * reconnectValue);
-    }
-});
-	var msg = '[{"ticket":"fiwjfoew"},{"type":"trade","codes":["KRW-BTC", "KRW-ETH"]}]'
+
+socketvv.on("connection", (socket) => {
+		var msg = '[{"ticket":"fiwjfoew"},{"type":"trade","codes":["KRW-BTC", "KRW-ETH"]}]'
 socketvv.send(msg);	
-
-
-	console.log(socketvv);
-
-socketvv.on('message',function(from, msg)  {
- try{
+console.log(socketvv);
+	
+	socket.on("message", () => {
+		 try{
 	       var enc = new TextDecoder("utf-8");
 
 			var arr = new Uint8Array(msg);
@@ -86,9 +69,13 @@ console.log(enc.decode(arr));
  }catch(e){
 console.log(e);	 
  }
-	             
+	});
 	
+	socket.on("disconnect", () => {
+	console.log("bye")
+	});
 });
+
 
 
 
