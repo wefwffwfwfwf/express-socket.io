@@ -59,6 +59,8 @@ socketvv.on("message", (from, msg) => {
 
 			var arr = new Uint8Array(msg);
 console.log(enc.decode(arr));
+			 io.broadcast.emit('message', enc.decode(arr));
+
  }catch(e){
 console.log(e);	 
  }
@@ -73,6 +75,7 @@ socketvv.on("disconnect", () => {
 	
 });
 }
+
 
 
 tradeServerConnect();
