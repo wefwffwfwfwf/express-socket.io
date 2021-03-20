@@ -53,7 +53,7 @@ socketvv.on("connect", function(from, msg) {
 socketvv.send(msg);	
 });
 	
-socket.on("message", () => {
+socketvv.on("message", () => {
 		 try{
 	       var enc = new TextDecoder("utf-8");
 
@@ -64,7 +64,7 @@ console.log(e);
  }
 	});
 	
-socket.on("disconnect", () => {
+socketvv.on("disconnect", () => {
 	console.log("bye")
 	socketvv = new WebSocketWrapper(new WebSocket("wss://api.upbit.com/websocket/v1"));
 });
