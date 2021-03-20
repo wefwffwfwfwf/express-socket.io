@@ -47,7 +47,22 @@ io.set('origins', '*:*');
   })
 	var socketvv = new WebSocketWrapper(new WebSocket("wss://api.upbit.com/websocket/v1"));
 
-  var msg = [{"ticket":"UNIQUE_TICKET"},{"type":"trade","codes":["KRW-BTC"]},{"type":"orderbook","codes":["KRW-ETH"]},{"type":"ticker", "codes":["KRW-EOS"]}];
+	var msg = [
+
+				{
+
+					"ticket"	: "TEST",
+
+				},
+
+				{
+
+					"type"		: "ticker",
+
+					"codes"		: ["KRW-BTC"]
+				}
+
+			];
 
 			msg = JSON.stringify(msg);	
 socketvv.emit(msg);	
