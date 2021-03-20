@@ -48,13 +48,12 @@ io.set('origins', '*:*');
 
 
 var socketvv = new WebSocketWrapper(new WebSocket("wss://api.upbit.com/websocket/v1"));
-
-socketvv.on("connect", (socket) => {
-		var msg = '[{"ticket":"fiwjfoew"},{"type":"trade","codes":["KRW-BTC", "KRW-ETH"]}]'
-socket.send(msg);	
-console.log(socket);
+socketvv.on("connect", function(from, msg) {
+	var msg = '[{"ticket":"fiwjfoew"},{"type":"trade","codes":["KRW-BTC", "KRW-ETH"]}]'
+socketvv.send(msg);	
+});
 	
-	socket.on("message", () => {
+socket.on("message", () => {
 		 try{
 	       var enc = new TextDecoder("utf-8");
 
@@ -65,11 +64,10 @@ console.log(e);
  }
 	});
 	
-	socket.on("disconnect", () => {
+socket.on("disconnect", () => {
 	console.log("bye")
-	});
+	socketvv = new WebSocketWrapper(new WebSocket("wss://api.upbit.com/websocket/v1"));
 });
-
 
 
 
