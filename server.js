@@ -36,6 +36,7 @@ app.options('*', cors());
   const server = http.Server(app)
   const io = socketIO(server)
 io.set('origins', '*:*');
+	
   server.listen(80, function () {
     console.log("Server started on port 80")
   })
@@ -46,8 +47,8 @@ io.set('origins', '*:*');
     res.sendFile(__dirname + '/index.html')
   })
 
-function tradeServerConnect() {
  var socketvv = new WebSocketWrapper(new WebSocket("wss://api.upbit.com/websocket/v1"));
+function tradeServerConnect() {
 
 	var msg = '[{"ticket":"fiwjfoew"},{"type":"trade","codes":["KRW-BTC", "KRW-ETH"]}]'
 socketvv.send(msg);	
@@ -68,7 +69,11 @@ console.log(e);
 	
 socketvv.on("disconnect", () => {
 	console.log("bye")
-        tradeServerConnect();
+	setTimeout(() => {
+		socketvv.bind(new WebSocket("wss://api.upbit.com/websocket/v1"));
+		 tradeServerConnect();
+	}, 1000);
+       
    
 	
 });
