@@ -24,10 +24,11 @@
 const express = require('express')
 const morgan = require('morgan')
 const http = require('http')
-
+const csoket = require("socket.io-client");
 const socketIO = require('socket.io')
 const cors = require('cors');
 module.exports = function createServer() {
+const vvocket = csoket("wss://api.upbit.com/websocket/v1");
 
   const app = express()
 app.use(cors());
@@ -38,7 +39,17 @@ io.set('origins', '*:*');
   server.listen(80, function () {
     console.log("Server started on port 80")
   })
+  
+vvocket.on("connection", (bbsocket) => {
+  var msg = [{"ticket":"UNIQUE_TICKET"},{"type":"trade","codes":["KRW-BTC"]},{"type":"orderbook","codes":["KRW-ETH"]},{"type":"ticker", "codes":["KRW-EOS"]}];
 
+			msg = JSON.stringify(msg);
+  bbsocket.emit(msg);
+});
+
+vvocket.onAny((event) => {
+  console.log(`got ${event}`);
+});
   app.use(morgan('dev'))
 
   app.get('/', function (req, res) {
