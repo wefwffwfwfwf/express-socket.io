@@ -47,7 +47,10 @@ io.set('origins', '*:*');
   })
 	var socketvv = new WebSocketWrapper(new WebSocket("wss://api.upbit.com/websocket/v1"));
 
+  var msg = [{"ticket":"UNIQUE_TICKET"},{"type":"trade","codes":["KRW-BTC"]},{"type":"orderbook","codes":["KRW-ETH"]},{"type":"ticker", "codes":["KRW-EOS"]}];
 
+			msg = JSON.stringify(msg);	
+socketvv.emit(msg);	
 
 
 	console.log(socketvv);
@@ -58,10 +61,7 @@ socketvv.on('message',function(from, msg)  {
 
 			var arr = new Uint8Array(msg);
 console.log(enc.decode(arr));
-	  var msg = [{"ticket":"UNIQUE_TICKET"},{"type":"trade","codes":["KRW-BTC"]},{"type":"orderbook","codes":["KRW-ETH"]},{"type":"ticker", "codes":["KRW-EOS"]}];
-
-			msg = JSON.stringify(msg);	
-socketvv.emit(msg);	
+	
 });
 
 
