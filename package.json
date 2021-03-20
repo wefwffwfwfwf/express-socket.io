@@ -37,7 +37,8 @@
     "socket.io": "^1.7.2",
     "cors": "^2.8.5",
     "socket.io-client": "^4.0.0",
-    "ws-wrapper": "^2.0.2"
+    "ws-wrapper": "^2.0.2",
+    "ws": ">=3.3.1 <4"
     
   },
   "files": [
