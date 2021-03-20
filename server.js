@@ -46,19 +46,13 @@ io.set('origins', '*:*');
     res.sendFile(__dirname + '/index.html')
   })
 
-	
-	const RECONNECT_VALUE_MIN = 1000 // 1 second
-    , RECONNECT_VALUE_MAX = 1000 * 60 // 1 minute
-    , RECONNECT_VALUE_FACTOR = 1.4;
 
-let reconnectValue = RECONNECT_VALUE_MIN;
-	var socketvv = new WebSocketWrapper(new WebSocket("wss://api.upbit.com/websocket/v1"),{  "requestTimeout": 8 * 1000 });
-socketvv.autoReconnect = true;
+var socketvv = new WebSocketWrapper(new WebSocket("wss://api.upbit.com/websocket/v1"));
 
 socketvv.on("connection", (socket) => {
 		var msg = '[{"ticket":"fiwjfoew"},{"type":"trade","codes":["KRW-BTC", "KRW-ETH"]}]'
-socketvv.send(msg);	
-console.log(socketvv);
+socket.send(msg);	
+console.log(socket);
 	
 	socket.on("message", () => {
 		 try{
