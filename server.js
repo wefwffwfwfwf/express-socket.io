@@ -53,7 +53,7 @@ socketvv.on("connect", function(from) {
 socketvv.send(msg);	
 });
 	
-socketvv.on("message", () => {
+socketvv.on("message", (from, msg) => {
 		 try{
 	       var enc = new TextDecoder("utf-8");
 
