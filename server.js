@@ -54,7 +54,7 @@ io.set('origins', '*:*');
 socketvv.emit(msg);
 	console.log(socketvv);
 
-socketvv.on('message', function incoming(data) {
+socketvv.on('message',function(from, msg)  {
  console.log(data);
 });
 
