@@ -24,7 +24,9 @@
 const express = require('express')
 const morgan = require('morgan')
 const http = require('http')
-const socketIO = require('socket.io')
+const socketIO = require("socket.io")({
+  serveClient: false,
+});
 const cors = require('cors');
 module.exports = function createServer() {
 
@@ -34,6 +36,7 @@ app.options('*', cors());
   const server = http.Server(app)
   const io = socketIO(server)
 io.set('origins', '*:*');
+
   server.listen(80, function () {
     console.log("Server started on port 80")
   })
